@@ -1,50 +1,65 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { withBaseLayout } from '../layouts/Base'
+import { withBaseLayout } from '../layouts/Base';
+import { updateSettings } from '../actions/settings';
 
 function Settings(props) {
-  return (
+  const dispatch = useDispatch();
+  const { isDarkTheme, showNotifications, playSound } = useSelector(
+    ({ settings }) => settings
+  );
 
-    <div className="centered-view">
-      <div className="centered-container">
-        <form className="centered-container-form">
-          <div className="header">Adjust application settings</div>
-          <button type="button" >Notify Me</button>
-          <div className="form-container">
-            <div className="my-3">
-              <div className="form-check">
+  const handleChange = ({ target: { checked, name } }) => {
+    dispatch(updateSettings(name, checked));
+  };
+
+  return (
+    <div className='centered-view'>
+      <div className='centered-container'>
+        <form className='centered-container-form'>
+          <div className='header'>Adjust application settings</div>
+          <button type='button'>Notify Me</button>
+          <div className='form-container'>
+            <div className='my-3'>
+              <div className='form-check'>
                 <input
-                  name="isDarkTheme"
-                  type="checkbox"
-                  className="form-check-input" />
-                <label className="form-check-label">Dark Theme</label>
+                  checked={isDarkTheme}
+                  onChange={handleChange}
+                  name='isDarkTheme'
+                  type='checkbox'
+                  className='form-check-input'
+                />
+                <label className='form-check-label'>Dark Theme</label>
               </div>
-              <div className="form-check">
+              <div className='form-check'>
                 <input
-                  name="showNotifications"
-                  type="checkbox"
-                  className="form-check-input" />
-                <label className="form-check-label">Enable Notification</label>
+                  checked={showNotifications}
+                  onChange={handleChange}
+                  name='showNotifications'
+                  type='checkbox'
+                  className='form-check-input'
+                />
+                <label className='form-check-label'>Enable Notification</label>
               </div>
-              <div className="form-check">
+              <div className='form-check'>
                 <input
-                  name="playSound"
-                  type="checkbox"
-                  className="form-check-input" />
-                <label className="form-check-label">Sound notification</label>
+                  checked={playSound}
+                  onChange={handleChange}
+                  name='playSound'
+                  type='checkbox'
+                  className='form-check-input'
+                />
+                <label className='form-check-label'>Sound notification</label>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={() => {}}
-              className="btn btn-danger">
+            <button type='button' onClick={() => {}} className='btn btn-danger'>
               Quit App
             </button>
           </div>
         </form>
       </div>
     </div>
-
   );
 }
 
